@@ -1,0 +1,10 @@
+export const CREATED_NEW_POINT_SUCCESS = 'New image has been generated successfully'
+export const CREATED_NEW_POST_SUCCESS = 'New post has been created successfully'
+export const UNABLE_CREATE_POST = 'Unable to create a post, please try again'
+export const UNABLE_GENERATE_IMAGE = 'Unable to generate image, please try again later'
+export const MISSING_PROMOT_ERROR = 'Please enter the prompt for image generation'
+export const LIMIT_REQUEST_IMAGE_ERROR = 'By your current plan you can generate no more the 1 image per minute'
+export const NO_POST_FOUND_ERROR = 'No posts found, please try again later'
+export const GLOBAL_ERROR = 'Something went wrong, please try again later'
+
+export const DEFAULT_IMAGE_LINK = 'https://res.cloudinary.com/bandmsociety/image/upload/v1701207201/pointer/store/default-image.svg'
