@@ -9,11 +9,22 @@ class PostService {
             const startIndex = (cursorNumber -1) * LIMIT;
             let data
 
-            data = await Post.aggregate([
+            const pipeline = [
+                {
+                    $project: {
+                        _id: true,
+                        userName: true,
+                        prompt: true,
+                        image: true,
+                        createdAt: true
+                    }
+                },
                 { $sort: { createdAt: -1 } },
                 { $skip: startIndex },
                 { $limit: LIMIT }
-            ])
+            ]
+
+            data = await Post.aggregate(pipeline)
 
             return data
         } catch (error) {
@@ -56,11 +67,11 @@ class PostService {
 
     async CreatePost(userName, prompt, image) {
         try {
-            const imgUrl = await CloudinaryService.uploadImage(image, userName)
+            const { imageUrl, width, height } = await CloudinaryService.uploadImage(image, prompt)
             await Post.create({
                 userName,
                 prompt,
-                image: imgUrl ? imgUrl : DEFAULT_IMAGE_LINK
+                image: { url: imageUrl ? imageUrl : DEFAULT_IMAGE_LINK, width, height }
             })
         } catch (error) {
             return error
