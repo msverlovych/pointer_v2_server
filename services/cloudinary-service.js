@@ -13,7 +13,13 @@ class CloudinaryService {
             filename_override: dashedPromptName,
             unique_filename: false,
             overwrite: true,
-            format: 'webp'
+            format: 'webp',
+            eager: [
+                { width: 400 },
+                { width: 800 },
+                { width: 1200}
+            ],
+            eager_async: true
         })
 
         return { imageUrl: imageUrl.secure_url, width: imageUrl.width, height: imageUrl.height }
