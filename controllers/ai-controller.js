@@ -15,15 +15,20 @@ class AiController {
 
             return res.status(201).json({ message: CREATED_NEW_POINT_SUCCESS, image: generatedImage }) 
         } catch (error) {
-            if (error.response) {
+            if (error?.response) {
                 const statusCode = error.response.status
-        
-                if (statusCode === 429) {
-                  return res.status(429).json({ message: LIMIT_REQUEST_IMAGE_ERROR, image: DEFAULT_IMAGE_LINK })
-                } else if (statusCode === 400) {
-                  return res.status(400).json({ message: UNABLE_GENERATE_IMAGE, image: DEFAULT_IMAGE_LINK })
-                } else if (statusCode === 500) {
-                    return res.json({ message: GLOBAL_ERROR, image: DEFAULT_IMAGE_LINK })
+
+                switch (statusCode) {
+                    case 429:
+                        return res.status(429).json({ message: LIMIT_REQUEST_IMAGE_ERROR, image: DEFAULT_IMAGE_LINK })
+                        break;
+                
+                    case 400:
+                        return res.status(400).json({ message: UNABLE_GENERATE_IMAGE, image: DEFAULT_IMAGE_LINK })
+                        break;    
+                    default:
+                        return res.json({ message: GLOBAL_ERROR, image: DEFAULT_IMAGE_LINK })
+                        break;
                 }
             }
         }  
